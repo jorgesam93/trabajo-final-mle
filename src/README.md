@@ -4,7 +4,7 @@
 
 ### Paso 1: Fork del Repositorio Original
 
-En el navegador, inicie sesión en Github. Luego, vaya al enlace del proyecto original (https://github.com/lcajachahua/model-credit) y dé click al botón "Fork". Esto copiará todo el proyecto en su usuario de Github.
+En el navegador, inicie sesión en Github. Luego, vaya al enlace del proyecto original (https://github.com/jorgesam93/trabajo-final-mle.git) y dé click al botón "Fork". Esto copiará todo el proyecto en su usuario de Github.
 
 
 ### Paso 2: Levantar el contenedor de Python
@@ -60,9 +60,15 @@ cd ..
 ### Paso 7: Guardar los cambios en el Repo
 
 ```
-git add .
+git lfs install
 
-git commit -m "Pruebas Finalizadas"
+git lfs track "models/text_classifier.pkl"
+
+git add .gitattributes
+
+git add models/text_classifier.pkl
+
+git commit -m "Pruebas Finalizadas y modelo rastreado con Git LFS"
 
 git push
 
