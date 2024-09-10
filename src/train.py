@@ -1,6 +1,3 @@
-# Código de Entrenamiento - Clasificación de Texto
-############################################################################
-
 import pandas as pd
 import pickle
 import os
@@ -13,18 +10,24 @@ from sklearn.preprocessing import LabelEncoder
 # Cargar la tabla transformada
 def read_file_csv(filename):
     df = pd.read_csv(os.path.join('../data/processed', filename))
-    print(filename, 'cargado correctamente')
+    print(filename, 'cargado correctamente con columnas:', df.columns.tolist())  # Verificar las columnas cargadas
     return df
 
 # Entrenamiento del modelo
 def model_training(df):
+    # Verificar que la columna 'label' exista
+    if 'label' not in df.columns:
+        raise ValueError("La columna 'label' no está presente en el DataFrame. Verifique el archivo de entrada.")
+    
     # Codificación de etiquetas
     le_model = LabelEncoder()
     df['label'] = le_model.fit_transform(df['label'])
     
     # División del conjunto de datos en entrenamiento y prueba
-    x_train, x_test, y_train, y_test = train_test_split(df['preprocessed_text'], df['label'], 
-                                                        test_size=0.2, random_state=42, stratify=df['label'])
+    x_train, x_test, y_train, y_test = train_test_split(
+        df['preprocessed_text'], df['label'], 
+        test_size=0.2, random_state=42, stratify=df['label']
+    )
     
     # Creación del clasificador con RandomForest
     clf = Pipeline([
